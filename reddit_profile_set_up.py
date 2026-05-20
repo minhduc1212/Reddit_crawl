@@ -29,9 +29,11 @@ async def run():
         print("Reddit loaded. You can now log in if needed. The session will be saved in 'reddit_user_data'.")
         
         # Keep the browser open for a while to allow interaction
-        await asyncio.sleep(60)
-        
+        await asyncio.to_thread(input, "Press Enter to close the browser and save the session...")
         await context.close()
+
+    # Small delay to allow Windows ProactorEventLoop to clean up subprocess pipes cleanly
+    await asyncio.sleep(0.25)
 
 if __name__ == "__main__":
     asyncio.run(run())
